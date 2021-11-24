@@ -1,29 +1,28 @@
 package javapractice;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class EmployeePayroll {
-
 	private List<EmployeePayrollData> employeePayrollList;
-	private EmployeePayrollService employeePayrollService;
+	private EmployeePayrollService employeePayroll;
 
 	public EmployeePayroll() {
-		employeePayrollService = EmployeePayrollService.getInstance();
+		employeePayroll = EmployeePayrollService.getInstance();
 	}
 
-	public EmployeePayroll(List<EmployeePayrollData> employeePayrollList) {
+	public EmployeePayroll(List<EmployeePayrollData> employeePayRollList) {
 		this();
-		this.employeePayrollList = employeePayrollList;
+		this.employeePayrollList = employeePayRollList;
 	}
 
-	public List<EmployeePayrollData> readEmployeePayroll() {
-		this.employeePayrollList = new EmployeePayrollService().readData();
+	public List<EmployeePayrollData> readEmployeePayRoll() {
 		this.employeePayrollList = EmployeePayrollService.getInstance().readData();
 		return employeePayrollList;
 	}
 
 	public void updateEmployeeSalary(String name, double salary) {
-		int result = employeePayrollService.updateEmployeeData(name, salary);
+		int result = employeePayroll.updateEmployeeData(name, salary);
 		if (result == 0)
 			return;
 		EmployeePayrollData employeePayrollData = this.getEmployeePayrollData(name);
@@ -39,7 +38,11 @@ public class EmployeePayroll {
 	}
 
 	public boolean checkEmployeePayrollInSyncWithDB(String name) {
-		List<EmployeePayrollData> employeePayrollDataList = employeePayrollService.getEmployeePayrollData(name);
+		List<EmployeePayrollData> employeePayrollDataList = employeePayroll.getEmployeePayrollData(name);
 		return employeePayrollDataList.get(0).equals(getEmployeePayrollData(name));
+	}
+
+	public List<EmployeePayrollData> readEmployeePayRollForDateRange(LocalDate startDate, LocalDate endDate) {
+		return employeePayroll.getEmployeeForDateRange(startDate, endDate);
 	}
 }

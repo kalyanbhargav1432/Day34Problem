@@ -1,23 +1,22 @@
 package javapractice;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class EmployeePayrollData {
 	public int id;
 	public String name;
-	public double salary;
-	public LocalDate startDate;
+	public Double salary;
+	public LocalDate start;
 
-	public EmployeePayrollData(Integer id, String name, Double salary) {
+	public EmployeePayrollData(int id, String name, Double salary) {
 		this.id = id;
 		this.name = name;
 		this.salary = salary;
 	}
 
-	public EmployeePayrollData(int id, String name, double salary, LocalDate startDate) {
+	public EmployeePayrollData(int id, String name, Double salary, LocalDate start) {
 		this(id, name, salary);
-		this.startDate = startDate;
+		this.start = start;
 	}
 
 	@Override
@@ -27,13 +26,11 @@ public class EmployeePayrollData {
 		if (o == null || getClass() != o.getClass())
 			return false;
 		EmployeePayrollData that = (EmployeePayrollData) o;
-		return id == that.id && Double.compare(that.salary, salary) == 0 && Objects.equals(name, that.name)
-				&& Objects.equals(startDate, that.startDate);
+		return id == that.id && name.equals(that.name) && salary.equals(that.salary) && start.equals(that.start);
 	}
 
 	@Override
 	public String toString() {
-		return "EmployeePayRollData{" + "id=" + id + ", name='" + name + '\'' + ", salary=" + salary + ", startDate="
-				+ startDate + '}';
+		return "PayRollData{" + "id=" + id + ", name='" + name + '\'' + ", salary=" + salary + ", start=" + start + '}';
 	}
 }
